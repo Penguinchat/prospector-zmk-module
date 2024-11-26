@@ -8,10 +8,10 @@ config PROSPECTOR_ROTATE_DISPLAY_180
 
 config PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR
     bool "Use ambient light sensor for auto brightness"
-    default y
+    default n
 
 config PROSPECTOR_FIXED_BRIGHTNESS
     int "Fixed display brightness"
     default 50
     range 1 100
-    depends on !PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR
+#    depends on !#PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR
