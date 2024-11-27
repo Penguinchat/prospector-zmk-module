@@ -12,13 +12,7 @@ static const struct device *pwm_leds_dev = DEVICE_DT_GET_ONE(pwm_leds);
 #define DISP_BL DT_NODE_CHILD_IDX(DT_NODELABEL(disp_bl))
 
 #ifdef CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR
-if (CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR == n) 
-    static uint8_t current_brightness = 50;
-
-if (CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR == y) 
-    static uint8_t current_brightness = 100;
-
-
+static uint8_t current_brightness = 50;
 #define SENSOR_MIN      0       // Minimum sensor reading
 #define SENSOR_MAX      100   // Maximum sensor reading
 #define PWM_MIN         1       // Minimum PWM duty cycle (%) - keep display visible
