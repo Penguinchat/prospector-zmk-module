@@ -12,7 +12,7 @@ static const struct device *pwm_leds_dev = DEVICE_DT_GET_ONE(pwm_leds);
 #define DISP_BL DT_NODE_CHILD_IDX(DT_NODELABEL(disp_bl))
 
 #ifdef CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR
-  #if 1
+  #if CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR == y
     static uint8_t current_brightness = 100;
   #else
     led_set_brightness(pwm_leds_dev, DISP_BL，50);
