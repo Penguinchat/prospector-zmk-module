@@ -62,8 +62,8 @@ uint8_t bl_fade(uint8_t source, uint8_t target) {
         current_brightness += increasing ? FADE_STEP : -FADE_STEP;
 
         // Ensure we don't overshoot bounds
-        if (current_brightness > 100) {
-            current_brightness = 100;
+        if (current_brightness > 50) {
+            current_brightness = 50;
         } else if (current_brightness < 0) {
             current_brightness = 0;
         }
