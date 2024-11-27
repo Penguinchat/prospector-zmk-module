@@ -12,7 +12,6 @@ static const struct device *pwm_leds_dev = DEVICE_DT_GET_ONE(pwm_leds);
 #define DISP_BL DT_NODE_CHILD_IDX(DT_NODELABEL(disp_bl))
 
 #ifdef CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR
-    #if CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR ==y  
         static uint8_t current_brightness = 100;
 #define SENSOR_MIN      0       // Minimum sensor reading
 #define SENSOR_MAX      100   // Maximum sensor reading
@@ -90,7 +89,7 @@ extern void als_thread(void *d0, void *d1, void *d2) {
     }
 
     // led_set_brightness(pwm_leds_dev, DISP_BL, 100);
-
+    #if CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR == y
     while (1) {
 
         k_msleep(NORMAL_SAMPLE_SLEEP_MS);
@@ -140,17 +139,17 @@ extern void als_thread(void *d0, void *d1, void *d2) {
         // led_set_brightness(pwm_leds_dev, DISP_BL, map_light_to_pwm(intensity.val1));
     }
 }
-    #else
+    
 K_THREAD_DEFINE(als_tid, 1024, als_thread, NULL, NULL, NULL, K_LOWEST_APPLICATION_THREAD_PRIO, 0,
                 0);
+    #endif
+    #if CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR == n
+        static int init_fixed_brightness(void) {
+            led_set_brightness(pwm_leds_dev, DISP_BL, CONFIG_PROSPECTOR_FIXED_BRIGHTNESS);
 
-  
-static int init_fixed_brightness(void) {
-    led_set_brightness(pwm_leds_dev, DISP_BL, CONFIG_PROSPECTOR_FIXED_BRIGHTNESS);
+                return 0;
+            }
 
-    return 0;
-}
-
-SYS_INIT(init_fixed_brightness, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+                SYS_INIT(init_fixed_brightness, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
     #endif
 #endif
