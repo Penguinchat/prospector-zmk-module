@@ -73,7 +73,7 @@ uint8_t bl_fade(uint8_t source, uint8_t target) {
 
     return 0;
 }
-#if CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR == y
+
 extern void als_thread(void *d0, void *d1, void *d2) {
     ARG_UNUSED(d0);
     ARG_UNUSED(d1);
@@ -139,8 +139,8 @@ extern void als_thread(void *d0, void *d1, void *d2) {
         // led_set_brightness(pwm_leds_dev, DISP_BL, map_light_to_pwm(intensity.val1));
     }
 }
-    
-K_THREAD_DEFINE(als_tid, 1024, als_thread, NULL, NULL, NULL, K_LOWEST_APPLICATION_THREAD_PRIO, 0,
+#if CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR == y    
+        K_THREAD_DEFINE(als_tid, 1024, als_thread, NULL, NULL, NULL, K_LOWEST_APPLICATION_THREAD_PRIO, 0,
                 0);
     #endif
     #if CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR == n
